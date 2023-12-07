@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qv3lkBIxYdIaQgZSAOj1JviVjUmUizhOtAlogMMn9D8YEi9bb4rCZWfvmfdlISX0GrHAn2YI1bSxbrvJVZm19Q==",
+  "success": true,
+  "projectFilePath": "/Users/samet/Desktop/sdk/csharp/csharp.csproj",
+  "expectedPackageFiles": [
+    "/Users/samet/.nuget/packages/newtonsoft.json/12.0.1/newtonsoft.json.12.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
