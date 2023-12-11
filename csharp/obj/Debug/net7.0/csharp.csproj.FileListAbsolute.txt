@@ -1,0 +1,17 @@
+/Users/samet/Desktop/sdk/csharp/bin/Debug/net7.0/csharp
+/Users/samet/Desktop/sdk/csharp/bin/Debug/net7.0/csharp.deps.json
+/Users/samet/Desktop/sdk/csharp/bin/Debug/net7.0/csharp.runtimeconfig.json
+/Users/samet/Desktop/sdk/csharp/bin/Debug/net7.0/csharp.dll
+/Users/samet/Desktop/sdk/csharp/bin/Debug/net7.0/csharp.pdb
+/Users/samet/Desktop/sdk/csharp/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.csproj.AssemblyReference.cache
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.AssemblyInfoInputs.cache
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.AssemblyInfo.cs
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.csproj.CoreCompileInputs.cache
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.csproj.CopyComplete
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.dll
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/refint/csharp.dll
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.pdb
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/csharp.genruntimeconfig.cache
+/Users/samet/Desktop/sdk/csharp/obj/Debug/net7.0/ref/csharp.dll

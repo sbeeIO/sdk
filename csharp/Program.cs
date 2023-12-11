@@ -17,7 +17,7 @@ class SbeeRest
     /*
         Server connection functionality 
     */
-    private async Task<string> MakeRequest(string url, string method, string[] headers, string data = null)
+    private async Task<string> MakeRequest(string url, string method, string[] headers, string? data = null)
     {
         if (method != "GET" && method != "POST")
         {
@@ -234,7 +234,7 @@ class SbeeRest
         Kline Formation
         It is a technical analysis tool used in cryptocurrency trading.
         @param $Exchange='Binance'
-        @param $Trade ='Spot' //Futures
+        @param $Trade ='Spot'
         @param $symbol='BTC-USDT'
         @param $interval='1m, 5m, 15m, 30m, 1h, 4h, 1d, 1M'
         @param $startTime='1689170400000'
@@ -353,7 +353,7 @@ class SbeeRest
         @param $apiSecret='Secret...'
         @param $apiPass='Pass..'
     */
-    public async Task<dynamic> PlaceLimitOrder(string exchange, string trade, string symbol, string clientOrderId, string price, string quoteQuantity, string baseQuantity, string side, string apiKey, string apiSecret, string apiPass)
+    public async Task<dynamic> PlaceLimitOrder(string exchange, string trade, string symbol, string clientOrderId, string price, string quoteQuantity, string baseQuantity, string leverage, string contract, string side, string apiKey, string apiSecret, string apiPass)
     {
         string url = $"{baseURL}/Crypto/{exchange}/{trade}/PlaceLimitOrder";
         string[] headers = { "accept: text/plain", $"Authorization: Bearer {auth}", "contentType: application/json" };
@@ -368,6 +368,8 @@ class SbeeRest
             price,
             quoteQuantity,
             baseQuantity,
+            leverage,
+            contract,
             side
         };
 
@@ -411,10 +413,10 @@ class SbeeRest
             apiSecret,
             apiPass,
             symbol,
-            ClientOrderId = clientOrderId,
-            price,
             quoteQuantity,
             baseQuantity,
+            ClientOrderId = clientOrderId,
+            price,
             leverage,
             contract,
             side
@@ -437,7 +439,7 @@ class SbeeRest
         https://doc.sbee.io/api/spot/limit-stop-loss-order
         Enters a buy or sell stop loss limit order
         @param $Exchange='Binance'
-        @param $Trade ='Spot' //Futures
+        @param $Trade ='Spot'
         @param $symbol='BTC-USDT'
         @param $quantity='0.0005'
         @param $ClientOrderId='ID653'
@@ -450,7 +452,7 @@ class SbeeRest
         @param $apiSecret='Secret...'
         @param $apiPass='Pass..'
     */
-    public async Task<dynamic> PlaceLimitStopLossOrder(string exchange, string trade, string symbol, string quantity, string clientOrderId, string stopPrice, string orderPrice, string price, string trailingDelta, string side, string apiKey, string apiSecret, string apiPass)
+    public async Task<dynamic> PlaceLimitStopLossOrder(string exchange, string trade, string symbol, string quantity, string clientOrderId, string stopPrice, string orderPrice, string price, string side, string apiKey, string apiSecret, string apiPass)
     {
         string url = $"{baseURL}/Crypto/{exchange}/{trade}/PlaceLimitStopLossOrder";
         string[] headers = { "accept: text/plain", $"Authorization: Bearer {auth}", "contentType: application/json" };
@@ -466,7 +468,6 @@ class SbeeRest
             stopPrice,
             orderPrice,
             price,
-            trailingDelta,
             side
         };
 
@@ -488,7 +489,7 @@ class SbeeRest
         https://doc.sbee.io/api/spot/limit-take-profit-order
         Limit Take Profit Order A type of limit order that specifies the exact price at which to close out an open position for a profit.
         @param $Exchange='Binance'
-        @param $Trade ='Spot' //Futures
+        @param $Trade ='Spot'
         @param $symbol='BTC-USDT'
         @param $quantity='0.005'
         @param $ClientOrderId='ID653323' 
@@ -500,7 +501,7 @@ class SbeeRest
         @param $apiSecret='Secret...'
         @param $apiPass='Pass..'
     */
-    public async Task<dynamic> PlaceLimitTakeProfitOrder(string exchange, string trade, string symbol, string quantity, string clientOrderId, string stopPrice, string orderPrice, string price, string trailingDelta, string side, string apiKey, string apiSecret, string apiPass)
+    public async Task<dynamic> PlaceLimitTakeProfitOrder(string exchange, string trade, string symbol, string quantity, string clientOrderId, string stopPrice, string orderPrice, string price, string side, string apiKey, string apiSecret, string apiPass)
     {
         string url = $"{baseURL}/Crypto/{exchange}/{trade}/PlaceLimitTakeProfitOrder";
         string[] headers = { "accept: text/plain", $"Authorization: Bearer {auth}", "contentType: application/json" };
@@ -516,7 +517,6 @@ class SbeeRest
             stopPrice,
             orderPrice,
             price,
-            trailingDelta,
             side
         };
 
@@ -1100,7 +1100,7 @@ class SbeeRest
         // Example of how to use the SbeeRest class
         SbeeRest sbeeRest = new SbeeRest("https://api.sbee.io/api", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxNDUiLCJuYmYiOjE3MDEwNzA4MzYsImV4cCI6MTk2Mzk4NjAzNn0.DjY98RjYECQBwpPIrXg-v-IvuDviJLCL93XaBDERnYk");
 
-        string[] resultTexts = new string[29];
+        string[] resultTexts = new string[30];
 
         string apiKey = "37t6ikIqih2WgNPx2846pggPvDtD9lrNd2jmbtevu6nYzHJUkqMG2jMe7NVvh87w";
         string apiSecret = "on1bbEzKRGzAHo7tVuzaY6eOFVzce9BQz5oZvHVlWJWQa4ckeqZk1zKIUASgI9Ud";
@@ -1174,7 +1174,7 @@ class SbeeRest
         string placeMarketOrderForPeopleTradeTypeParam = "Spot";
         string placeMarketOrderForPeopleDataParam = @"{
             ""symbol"": ""BTC-USDT"",
-            ""quoteQuantity"": 3,
+            ""quoteQuantity"": 36000,
             ""baseQuantity"": 1,
             ""ClientOrderId"": ""1"",
             ""side"": ""BUY"",
@@ -1195,21 +1195,21 @@ class SbeeRest
                 ""apiKey"": ""{apiKey}"",
                 ""apiSecret"": ""{apiSecret}"",
                 ""apiPass"": ""{apiPass}""
-                ""side"": ""buy"",
-                ""price"": 10000,
-                ""baseQuantity"":0.001,
-                ""quoteQuantity"": 0,
-                ""cliOrId"": ""UD01"",
+                ""side"": ""SELL"",
+                ""price"": 36000,
+                ""baseQuantity"": 1,
+                ""quoteQuantity"": 36000,
+                ""cliOrId"": ""1"",
                 ""symbol"": ""BTC-USDT""
             },{
                 ""apiKey"": ""{apiKey}"",
                 ""apiSecret"": ""{apiSecret}"",
                 ""apiPass"": ""{apiPass}""
-                ""side"": ""buy"",
-                ""price"": 10000,
-                ""baseQuantity"":0.001,
-                ""quoteQuantity"": 0,
-                ""cliOrId"": ""UD02"",
+                ""side"": ""SELL"",
+                ""price"": 36000,
+                ""baseQuantity"": 1,
+                ""quoteQuantity"": 36000,
+                ""cliOrId"": ""1"",
                 ""symbol"": ""BTC-USDT""
             }
             ]";
@@ -1232,17 +1232,17 @@ class SbeeRest
             ""orders"": [
                 {
                     ""symbol"": ""BTC-USDT"",
-                    ""clientOrderId"": ""UD01"",
-                    ""price"": 20000,
-                    ""quoteQuantity"": 0,
-                    ""baseQuantity"": 0.005,
+                    ""clientOrderId"": ""1"",
+                    ""price"": 36000,
+                    ""quoteQuantity"": 36000,
+                    ""baseQuantity"": 1,
                     ""side"": ""BUY""
                 },{
                     ""symbol"": ""BTC-USDT"",
-                    ""clientOrderId"": ""UD02"",
-                    ""price"": 20000,
-                    ""quoteQuantity"": 0,
-                    ""baseQuantity"": 0.005,
+                    ""clientOrderId"": ""1"",
+                    ""price"": 36000,
+                    ""quoteQuantity"": 36000,
+                    ""baseQuantity"": 1,
                     ""side"": ""BUY""
                 },
             ]
@@ -1286,8 +1286,8 @@ class SbeeRest
         string cancelBatchOrdersForPeopleDataParam = @"[
             {
                 ""symbol"": ""BTC-USDT"",
-                ""orderId"": """",
-                ""clientOrderId"": ""ID901"",
+                ""orderId"": ""1"",
+                ""clientOrderId"": ""1"",
                 ""apiKey"": ""{apiKey}"",
                 ""apiSecret"": ""{apiSecret}"",
                 ""apiPass"": ""{apiPass}""
@@ -1308,12 +1308,12 @@ class SbeeRest
             ""orders"": [
                 [
                     ""symbol"": ""BTC-USDT"",
-                    ""clientOrderId"": ""ID123"",
-                    ""orderId"": ""ID124"", 
+                    ""clientOrderId"": ""1"",
+                    ""orderId"": ""1"", 
                 ],[
                     ""symbol"": ""BTC-USDT"",
-                    ""clientOrderId"": ""ID126"",
-                    ""orderId"": ""ID127"", 
+                    ""clientOrderId"": ""2"",
+                    ""orderId"": ""2"", 
                 ],
             ]
             }";
@@ -1332,8 +1332,8 @@ class SbeeRest
         string cancelOrderExchangeParam = "Binance";
         string cancelOrderTradeParam = "Spot";
         string cancelOrderSymbolParam = "BTC-USDT";
-        string cancelOrderOrderIdParam = "43523123123";
-        string cancelOrderClientOrderIdParam = "ID3421";
+        string cancelOrderOrderIdParam = "123";
+        string cancelOrderClientOrderIdParam = "1";
         string cancelOrderApiKeyParam = "{apiKey}";
         string cancelOrderApiSecretParam = "{apiSecret}";
         string cancelOrderApiPassParam = "{apiPass}";
@@ -1359,13 +1359,12 @@ class SbeeRest
         string placeLimitTakeProfitOrderExchangeParam = "Binance";
         string placeLimitTakeProfitOrderTradeParam = "Spot";
         string placeLimitTakeProfitOrderSymbolParam = "BTC-USDT";
-        string placeLimitTakeProfitOrderQuantityParam = "0.005";
-        string placeLimitTakeProfitOrderClientOrderIdParam = "ID653323";
-        string placeLimitTakeProfitOrderStopPriceParam = "25000";
-        string placeLimitTakeProfitOrderOrderPriceParam = "22000";
-        string placeLimitTakeProfitOrderPriceParam = "20000";
-        string placeLimitTakeProfitOrderTrailingDeltaParam = "0";
-        string placeLimitTakeProfitOrderSideParam = "Buy";
+        string placeLimitTakeProfitOrderQuantityParam = "1";
+        string placeLimitTakeProfitOrderClientOrderIdParam = "1";
+        string placeLimitTakeProfitOrderStopPriceParam = "36010";
+        string placeLimitTakeProfitOrderOrderPriceParam = "35950";
+        string placeLimitTakeProfitOrderPriceParam = "36000";
+        string placeLimitTakeProfitOrderSideParam = "SELL";
         string placeLimitTakeProfitOrderApiKeyParam = "{apiKey}";
         string placeLimitTakeProfitOrderApiSecretParam = "{apiSecret}";
         string placeLimitTakeProfitOrderApiPassParam = "{apiPass}";
@@ -1378,7 +1377,6 @@ class SbeeRest
                 placeLimitTakeProfitOrderStopPriceParam,
                  placeLimitTakeProfitOrderOrderPriceParam,
                   placeLimitTakeProfitOrderPriceParam,
-                   placeLimitTakeProfitOrderTrailingDeltaParam,
                     placeLimitTakeProfitOrderSideParam,
                      placeLimitTakeProfitOrderApiKeyParam,
                       placeLimitTakeProfitOrderApiSecretParam,
@@ -1391,16 +1389,16 @@ class SbeeRest
         string placeLimitStopLossOrderExchangeParam = "Binance";
         string placeLimitStopLossOrderTradeParam = "Spot";
         string placeLimitStopLossOrderSymbolParam = "BTC-USDT";
-        string placeLimitStopLossOrderQuantityParam = "0.005";
-        string placeLimitStopLossOrderClientOrderIdParam = "ID653323";
-        string placeLimitStopLossOrderStopPriceParam = "25000";
-        string placeLimitStopLossOrderOrderPriceParam = "22000";
-        string placeLimitStopLossOrderPriceParam = "20000";
-        string placeLimitStopLossOrderTrailingDeltaParam = "0";
-        string placeLimitStopLossOrderSideParam = "Buy";
+        string placeLimitStopLossOrderQuantityParam = "1";
+        string placeLimitStopLossOrderClientOrderIdParam = "1";
+        string placeLimitStopLossOrderStopPriceParam = "36010";
+        string placeLimitStopLossOrderOrderPriceParam = "35950";
+        string placeLimitStopLossOrderPriceParam = "35950";
+        string placeLimitStopLossOrderSideParam = "SELL";
         string placeLimitStopLossOrderApiKeyParam = "{apiKey}";
         string placeLimitStopLossOrderApiSecretParam = "{apiSecret}";
         string placeLimitStopLossOrderApiPassParam = "{apiPass}";
+
         dynamic result17 = await sbeeRest.PlaceLimitStopLossOrder(
             placeLimitStopLossOrderExchangeParam,
             placeLimitStopLossOrderTradeParam,
@@ -1410,7 +1408,6 @@ class SbeeRest
                 placeLimitStopLossOrderStopPriceParam,
                  placeLimitStopLossOrderOrderPriceParam,
                   placeLimitStopLossOrderPriceParam,
-                   placeLimitStopLossOrderTrailingDeltaParam,
                     placeLimitStopLossOrderSideParam,
                      placeLimitStopLossOrderApiKeyParam,
                       placeLimitStopLossOrderApiSecretParam,
@@ -1421,14 +1418,14 @@ class SbeeRest
         //****************************************************************************************************
         //OK
         string placeMarketOrderExchangeParam = "Binance";
-        string placeMarketOrderTradeParam = "Spot";
+        string placeMarketOrderTradeParam = "Futures";
         string placeMarketOrderSymbolParam = "BTC-USDT";
-        string placeMarketOrderClientOrderIdParam = "ID653323";
-        string placeMarketOrderPriceParam = "26000";
-        string placeMarketOrderQuoteQuantityParam = "15";
-        string placeMarketOrderBaseQuantityParam = "0";
+        string placeMarketOrderClientOrderIdParam = "1";
+        string placeMarketOrderPriceParam = "36000";
+        string placeMarketOrderQuoteQuantityParam = "36000";
+        string placeMarketOrderBaseQuantityParam = "1";
         string placeMarketOrderLeverageParam = "5";
-        string placeMarketOrderContractParam = "5";
+        string placeMarketOrderContractParam = "1";
         string placeMarketOrderSideParam = "Buy";
         string placeMarketOrderApiKeyParam = "{apiKey}";
         string placeMarketOrderApiSecretParam = "{apiSecret}";
@@ -1452,17 +1449,19 @@ class SbeeRest
 
         //****************************************************************************************************
         //OK
-        string placeLimitOrderExchangeParam = "Binance";
-        string placeLimitOrderTradeParam = "Spot";
-        string placeLimitOrderSymbolParam = "BTC-USDT";
-        string placeLimitOrderClientOrderIdParam = "ID653323";
-        string placeLimitOrderPriceParam = "26000";
-        string placeLimitOrderQuoteQuantityParam = "15";
-        string placeLimitOrderBaseQuantityParam = "0";
-        string placeLimitOrderSideParam = "Buy";
         string placeLimitOrderApiKeyParam = "{apiKey}";
         string placeLimitOrderApiSecretParam = "{apiSecret}";
         string placeLimitOrderApiPassParam = "{apiPass}";
+        string placeLimitOrderSymbolParam = "BTC-USDT";
+        string placeLimitOrderClientOrderIdParam = "1";
+        string placeLimitOrderPriceParam = "36000";
+        string placeLimitOrderQuoteQuantityParam = "36000";
+        string placeLimitOrderBaseQuantityParam = "1";
+        string placeLimitOrderLeverageParam = "SELL";
+        string placeLimitOrderContractParam = "SELL";
+        string placeLimitOrderSideParam = "SELL";
+        string placeLimitOrderExchangeParam = "Binance";
+        string placeLimitOrderTradeParam = "Spot";
         dynamic result19 = await sbeeRest.PlaceLimitOrder(
             placeLimitOrderExchangeParam,
             placeLimitOrderTradeParam,
@@ -1471,10 +1470,12 @@ class SbeeRest
                placeLimitOrderPriceParam,
                 placeLimitOrderQuoteQuantityParam,
                  placeLimitOrderBaseQuantityParam,
-                  placeLimitOrderSideParam,
-                   placeLimitOrderApiKeyParam,
-                    placeLimitOrderApiSecretParam,
-                     placeLimitOrderApiPassParam);
+                  placeLimitOrderLeverageParam,
+                   placeLimitOrderContractParam,
+                    placeLimitOrderSideParam,
+                     placeLimitOrderApiKeyParam,
+                      placeLimitOrderApiSecretParam,
+                       placeLimitOrderApiPassParam);
         string resultText20 = result19.ToString();
         resultTexts[19] = resultText20;
 
@@ -1630,8 +1631,34 @@ class SbeeRest
         resultTexts[28] = resultText29;
 
         //****************************************************************************************************
+        //
+        string placeBatchMarketOrdersExchangeParam = "Binance";
+        string placeBatchMarketOrdersTradeTypeParam = "Spot";
+        string placeBatchMarketOrdersDataParam = @"{
+            ""apiKey"": ""{apiKey}"",
+            ""apiSecret"": ""{apiSecret}"",
+            ""apiPass"": ""{apiPass}""
+            ""orders"": [
+                {
+                    ""symbol"": ""BTC-USDT"",
+                    ""quoteQuantity"": 0,
+                    ""baseQuantity"": 0.005,
+                    ""clientOrderId"": ""1"",
+                    ""side"": ""SELL""
+                }
+            ]
+            }";
+        dynamic result29 = await sbeeRest.PlaceBatchMarketOrders(placeBatchMarketOrdersExchangeParam, placeBatchMarketOrdersTradeTypeParam, placeBatchMarketOrdersDataParam);
+        string resultText30 = "";
+        if (result29 != null)
+        {
+            resultText30 = result29.ToString();
+        }
+        resultTexts[29] = resultText30;
 
-        string filePath = "result.txt";
+        //****************************************************************************************************
+
+        string filePath = "result1.txt";
 
         using (StreamWriter writer = new StreamWriter(filePath, false))
         {
